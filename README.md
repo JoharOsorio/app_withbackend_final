@@ -1,12 +1,10 @@
 Para el examen, considere lo siguiente
 Para establecer login usen el servicio que cree en el ejemplo clase 7 final, recuerden que con ese servicio, pueden crear sus usuarios par hacer un login
 Para el resto del ejercicio es decir, para crear los CRUD de Proveedores, Categorías y Productos utilice
+
 Credenciales
-
  final String _baseUrl = "143.198.118.203:8000";
-
  final String _user = "test";
-
  final String _pass = "test2023";
 
 # Endpoint

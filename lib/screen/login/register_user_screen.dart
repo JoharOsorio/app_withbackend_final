@@ -1,12 +1,13 @@
-import 'package:app_withbackend_final/services/auth_service.dart';
 import 'package:app_withbackend_final/theme/theme.dart';
+import 'package:app_withbackend_final/services/auth_service.dart';
+import 'package:app_withbackend_final/ui/input_decorations.dart';
 import 'package:app_withbackend_final/widgets/widgets.dart';
 import 'package:provider/provider.dart';
 import 'package:app_withbackend_final/providers/providers.dart';
-import '../ui/input_decorations.dart';
 
-class LoginScreen extends StatelessWidget {
-  const LoginScreen({super.key});
+
+class RegisterUserScreen extends StatelessWidget {
+  const RegisterUserScreen({super.key});
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -21,23 +22,23 @@ class LoginScreen extends StatelessWidget {
                   child: Column(children: [
                 const SizedBox(height: 10),
                 Text(
-                  'Login',
+                  'Signup',
                   style: Theme.of(context).textTheme.headlineSmall,
                 ),
                 const SizedBox(height: 30),
                 ChangeNotifierProvider(
                   create: (_) => LoginFormProvider(),
-                  child: const LoginForm(),
+                  child: const RegisterForm(),
                 ),
                 const SizedBox(height: 50),
                 TextButton(
                   onPressed: () =>
-                      Navigator.pushReplacementNamed(context, 'add_user'),
+                      Navigator.pushReplacementNamed(context, 'login'),
                   style: ButtonStyle(
                       overlayColor: MaterialStateProperty.all(
                           Colors.indigo.withOpacity(0.1)),
                       shape: MaterialStateProperty.all(const StadiumBorder())),
-                  child: const Text('Do not have an account? Sign up'),
+                  child: const Text('Already have an account? Login'),
                 )
               ])),
             ],
@@ -48,12 +49,26 @@ class LoginScreen extends StatelessWidget {
   }
 }
 
-class LoginForm extends StatelessWidget {
-  const LoginForm({super.key});
+class RegisterForm extends StatelessWidget {
+  const RegisterForm({super.key});
 
   @override
   Widget build(BuildContext context) {
     final loginForm = Provider.of<LoginFormProvider>(context);
+    return SignUpForm(loginForm: loginForm);
+  }
+}
+
+class SignUpForm extends StatelessWidget {
+  const SignUpForm({
+    super.key,
+    required this.loginForm,
+  });
+
+  final LoginFormProvider loginForm;
+
+  @override
+  Widget build(BuildContext context) {
     return Form(
       key: loginForm.formKey,
       autovalidateMode: AutovalidateMode.onUserInteraction,
@@ -106,19 +121,18 @@ class LoginForm extends StatelessWidget {
                       Provider.of<AuthService>(context, listen: false);
                   if (!loginForm.isValidForm()) return;
                   loginForm.isLoading = true;
-                  final String? errorMessage = await authService.login(
+                  final String? errorMessage = await authService.createUser(
                       loginForm.email, loginForm.password);
                   if (errorMessage == null) {
-                    Navigator.pushNamed(context, 'list_product');
+                    Navigator.pushNamed(context, 'login');
                   } else {
                     print(errorMessage);
                   }
-                  loginForm.isLoading = false;
                 },
           child: Container(
             padding: const EdgeInsets.symmetric(horizontal: 80, vertical: 10),
             child: const Text(
-              'Login',
+              'Signup',
               style: TextStyle(color: Colors.white),
             ),
           ),

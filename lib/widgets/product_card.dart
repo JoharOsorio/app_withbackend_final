@@ -1,5 +1,5 @@
 import 'package:app_withbackend_final/theme/theme.dart';
-import 'package:app_withbackend_final/models/productos.dart';
+import 'package:app_withbackend_final/models/producto.dart';
 
 class ProductCard extends StatelessWidget {
   final Listado product;
@@ -14,7 +14,7 @@ class ProductCard extends StatelessWidget {
         width: double.infinity,
         height: 400,
         decoration: _cardDecorations(),
-        child: Stack(alignment: Alignment.bottomLeft, children: [
+        child: Stack(alignment: Alignment.bottomLeft, children: [ 
           _BackGroundImage(url: product.productImage),
           _ProductDetails(product: product),
           Positioned(top: 0, right: 0, child: _PriceTag(product: product)),

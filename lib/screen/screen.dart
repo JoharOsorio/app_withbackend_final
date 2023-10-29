@@ -1,6 +1,10 @@
-export 'package:app_withbackend_final/screen/register_user_screen.dart';
+export 'package:app_withbackend_final/screen/home_screen.dart';
+export 'package:app_withbackend_final/screen/login/register_user_screen.dart';
 export 'package:app_withbackend_final/screen/loading_screen.dart';
-export 'package:app_withbackend_final/screen/edit_product_screen.dart';
+export 'package:app_withbackend_final/screen/product/edit_product_screen.dart';
 export 'package:app_withbackend_final/screen/error_screen.dart';
-export 'package:app_withbackend_final/screen/list_product_screen.dart';
-export 'package:app_withbackend_final/screen/login_screen.dart';
+export 'package:app_withbackend_final/screen//product/list_product_screen.dart';
+export 'package:app_withbackend_final/screen/login/login_screen.dart';
+export 'package:app_withbackend_final/screen/category/list_categories_screen.dart';
+export 'package:app_withbackend_final/screen/category/edit_category_screen.dart';
+export 'package:app_withbackend_final/screen/provider/list_provider_screen.dart';

@@ -1,10 +1,10 @@
 import 'package:app_withbackend_final/theme/theme.dart';
 import 'package:app_withbackend_final/providers/product_form_provider.dart';
 import 'package:app_withbackend_final/services/product_service.dart';
+import 'package:app_withbackend_final/ui/input_decorations.dart';
 import 'package:app_withbackend_final/widgets/product_image.dart';
 import 'package:provider/provider.dart';
 
-import '../ui/input_decorations.dart';
 
 class EditProductScreen extends StatelessWidget {
   const EditProductScreen({super.key});
@@ -12,7 +12,7 @@ class EditProductScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     final productService = Provider.of<ProductService>(context);
     return ChangeNotifierProvider(
-        create: (_) => ProductFormProvider(productService.SelectProduct!),
+        create: (_) => ProductFormProvider(productService.selectProduct!),
         child: _ProductScreenBody(
           productService: productService,
         ));
@@ -35,7 +35,7 @@ class _ProductScreenBody extends StatelessWidget {
           Stack(
             children: [
               ProductImage(
-                url: productService.SelectProduct!.productImage,
+                url: productService.selectProduct!.productImage,
               ),
               Positioned(
                 top: 40,
@@ -71,7 +71,7 @@ class _ProductScreenBody extends StatelessWidget {
             child: const Icon(Icons.delete_forever),
             onPressed: () async {
               if (!productForm.isValidForm()) return;
-              await productService.deleteProduct(productForm.product, context);
+              await productService.deleteProduct(productForm.products, context);
             },
             heroTag: null,
           ),
@@ -80,7 +80,7 @@ class _ProductScreenBody extends StatelessWidget {
             child: const Icon(Icons.save_alt_outlined),
             onPressed: () async {
               if (!productForm.isValidForm()) return;
-              await productService.editOrCreateProduct(productForm.product);
+              await productService.editOrCreateProduct(productForm.products);
             },
             heroTag: null,
           ),
@@ -94,7 +94,7 @@ class _ProductForm extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final productForm = Provider.of<ProductFormProvider>(context);
-    final product = productForm.product;
+    final product = productForm.products;
 
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 10),

@@ -1,12 +1,12 @@
-import 'package:app_withbackend_final/theme/theme.dart';
 import 'package:app_withbackend_final/services/auth_service.dart';
+import 'package:app_withbackend_final/theme/theme.dart';
+import 'package:app_withbackend_final/ui/input_decorations.dart';
 import 'package:app_withbackend_final/widgets/widgets.dart';
 import 'package:provider/provider.dart';
 import 'package:app_withbackend_final/providers/providers.dart';
-import '../ui/input_decorations.dart';
 
-class RegisterUserScreen extends StatelessWidget {
-  const RegisterUserScreen({super.key});
+class LoginScreen extends StatelessWidget {
+  const LoginScreen({super.key});
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -21,23 +21,23 @@ class RegisterUserScreen extends StatelessWidget {
                   child: Column(children: [
                 const SizedBox(height: 10),
                 Text(
-                  'Signup',
+                  'Login',
                   style: Theme.of(context).textTheme.headlineSmall,
                 ),
                 const SizedBox(height: 30),
                 ChangeNotifierProvider(
                   create: (_) => LoginFormProvider(),
-                  child: const RegisterForm(),
+                  child: const LoginForm(),
                 ),
                 const SizedBox(height: 50),
                 TextButton(
                   onPressed: () =>
-                      Navigator.pushReplacementNamed(context, 'login'),
+                      Navigator.pushReplacementNamed(context, 'add_user'),
                   style: ButtonStyle(
                       overlayColor: MaterialStateProperty.all(
                           Colors.indigo.withOpacity(0.1)),
                       shape: MaterialStateProperty.all(const StadiumBorder())),
-                  child: const Text('Already have an account? Login'),
+                  child: const Text('Do not have an account? Sign up'),
                 )
               ])),
             ],
@@ -48,26 +48,12 @@ class RegisterUserScreen extends StatelessWidget {
   }
 }
 
-class RegisterForm extends StatelessWidget {
-  const RegisterForm({super.key});
+class LoginForm extends StatelessWidget {
+  const LoginForm({super.key});
 
   @override
   Widget build(BuildContext context) {
     final loginForm = Provider.of<LoginFormProvider>(context);
-    return SignUpForm(loginForm: loginForm);
-  }
-}
-
-class SignUpForm extends StatelessWidget {
-  const SignUpForm({
-    super.key,
-    required this.loginForm,
-  });
-
-  final LoginFormProvider loginForm;
-
-  @override
-  Widget build(BuildContext context) {
     return Form(
       key: loginForm.formKey,
       autovalidateMode: AutovalidateMode.onUserInteraction,
@@ -120,18 +106,19 @@ class SignUpForm extends StatelessWidget {
                       Provider.of<AuthService>(context, listen: false);
                   if (!loginForm.isValidForm()) return;
                   loginForm.isLoading = true;
-                  final String? errorMessage = await authService.create_user(
+                  final String? errorMessage = await authService.login(
                       loginForm.email, loginForm.password);
                   if (errorMessage == null) {
-                    Navigator.pushNamed(context, 'login');
+                    Navigator.pushNamed(context, 'home');
                   } else {
                     print(errorMessage);
                   }
+                  loginForm.isLoading = false;
                 },
           child: Container(
             padding: const EdgeInsets.symmetric(horizontal: 80, vertical: 10),
             child: const Text(
-              'Signup',
+              'Login',
               style: TextStyle(color: Colors.white),
             ),
           ),

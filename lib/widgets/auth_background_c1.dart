@@ -1,46 +1,47 @@
 import 'package:app_withbackend_final/theme/theme.dart';
-import 'package:flutter/material.dart';
 
 class AuthBackgorundC1 extends StatelessWidget {
+  const AuthBackgorundC1({super.key});
+
   @override
   Widget build(BuildContext context) {
-    final size_screen =
+    final sizeScreen =
         MediaQuery.of(context).size; //obtiene el tamaño de la pantalla
     return Container(
       width: double.infinity,
-      height: size_screen.height * 0.4, //40% de la pantalla
+      height: sizeScreen.height * 0.4, //40% de la pantalla
       decoration: orangeDecoration(),
       child: Stack(
         children: [
           Positioned(
-            child: Buble(),
             top: 90,
             left: 30,
+            child: Buble(),
           ),
           Positioned(
-            child: Buble(),
             top: -40,
             left: -30,
+            child: Buble(),
           ),
           Positioned(
-            child: Buble(),
             top: -50,
             right: -20,
+            child: Buble(),
           ),
           Positioned(
-            child: Buble(),
             bottom: -50,
             left: -20,
+            child: Buble(),
           ),
           Positioned(
-            child: Buble(),
             bottom: 120,
             right: 20,
+            child: Buble(),
           ),
           Positioned(
-            child: Buble(),
             bottom: 20,
             right: 80,
+            child: Buble(),
           ),
         ],
       ),
@@ -55,6 +56,8 @@ class AuthBackgorundC1 extends StatelessWidget {
 }
 
 class Buble extends StatelessWidget {
+  const Buble({super.key});
+
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -62,7 +65,7 @@ class Buble extends StatelessWidget {
       height: 100,
       decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(100),
-          color: Color.fromRGBO(255, 255, 255, 0.15)),
+          color: const Color.fromRGBO(255, 255, 255, 0.15)),
     );
   }
 }

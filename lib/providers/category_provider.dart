@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:app_withbackend_final/models/producto.dart';
+import 'package:app_withbackend_final/models/category.dart';
 
-class ProductFormProvider extends ChangeNotifier {
+class CategoryProvider extends ChangeNotifier {
   GlobalKey<FormState> formKey = GlobalKey<FormState>();
-  Listado products;
-  ProductFormProvider(this.products);
+  ListCategories categories;
+  CategoryProvider(this.categories);
 
   bool isValidForm() {
     return formKey.currentState?.validate() ?? false;

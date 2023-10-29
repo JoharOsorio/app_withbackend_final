@@ -13,11 +13,11 @@ class AuthBackground extends StatelessWidget {
       width: double.infinity,
       height: double.infinity,
       child: Stack(children: [
-        AuthBackgorundC1(),
+        const AuthBackgorundC1(),
         SafeArea(
             child: Container(
           width: double.infinity,
-          margin: EdgeInsets.only(top: 10),
+          margin: const EdgeInsets.only(top: 10),
           child: const Icon(
             Icons.person_pin_circle_rounded,
             color: Colors.white,

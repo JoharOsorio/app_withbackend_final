@@ -1,57 +1,57 @@
+import 'package:app_withbackend_final/models/category.dart';
 import 'package:flutter/material.dart';
 import 'dart:convert';
 import 'package:http/http.dart' as http;
-import 'package:app_withbackend_final/models/producto.dart';
 
-class ProductService extends ChangeNotifier {
+class CategoryService extends ChangeNotifier {
   final String _baseUrl = '143.198.118.203:8000';
   final String _user = 'test';
   final String _pass = 'test2023';
 
-  List<Listado> products = [];
-  Listado? selectProduct;
+  List<ListCategories> categories = [];
+  ListCategories? selectCategories;
   bool isLoading = true;
   bool isEditCreate = true;
 
-  ProductService() {
-    loadProducts();
+  CategoryService() {
+    loadCategory();
   }
-  Future loadProducts() async {
+  Future loadCategory() async {
     isLoading = true;
     notifyListeners();
     final url = Uri.http(
       _baseUrl,
-      'ejemplos/product_list_rest/',
+      'ejemplos/category_list_rest/',
     );
     String basicAuth = 'Basic ${base64Encode(utf8.encode('$_user:$_pass'))}';
     final response = await http.get(url, headers: {'authorization': basicAuth});
-    final productsMap = Product.fromJson(response.body);
+    final categoriesMap = Category.fromJson(response.body);
     print(response.body);
-    products = productsMap.listado;
+    categories = categoriesMap.lisCategories;
     isLoading = false;
     notifyListeners();
   }
 
-  Future editOrCreateProduct(Listado product) async {
+  Future editOrCreatecategory(ListCategories category) async {
     isEditCreate = true;
     notifyListeners();
-    if (product.productId == 0) {
-      await createProduct(product);
+    if (category.categoryId == 0) {
+      await createcategory(category);
     } else {
-      await updateProduct(product);
+      await updatecategory(category);
     }
 
     isEditCreate = false;
     notifyListeners();
   }
 
-  Future<String> updateProduct(Listado product) async {
+  Future<String> updatecategory(ListCategories category) async {
     final url = Uri.http(
       _baseUrl,
-      'ejemplos/product_edit_rest/',
+      'ejemplos/category_edit_rest/',
     );
     String basicAuth = 'Basic ${base64Encode(utf8.encode('$_user:$_pass'))}';
-    final response = await http.post(url, body: product.toJson(), headers: {
+    final response = await http.post(url, body: category.toJson(), headers: {
       'authorization': basicAuth,
       'Content-Type': 'application/json; charset=UTF-8',
     });
@@ -59,43 +59,43 @@ class ProductService extends ChangeNotifier {
     print(decodeResp);
 
     //actualizamos el listado
-    final index = products
-        .indexWhere((element) => element.productId == product.productId);
-    products[index] = product;
+    final index = categories
+        .indexWhere((element) => element.categoryId == category.categoryId);
+    categories[index] = category;
 
     return '';
   }
 
-  Future createProduct(Listado product) async {
+  Future createcategory(ListCategories category) async {
     final url = Uri.http(
       _baseUrl,
-      'ejemplos/product_add_rest/',
+      'ejemplos/category_add_rest/',
     );
     String basicAuth = 'Basic ${base64Encode(utf8.encode('$_user:$_pass'))}';
-    final response = await http.post(url, body: product.toJson(), headers: {
+    final response = await http.post(url, body: category.toJson(), headers: {
       'authorization': basicAuth,
       'Content-type': 'application/json; charset=UTF-8',
     });
     final decodeResp = response.body;
     print(decodeResp);
-    products.add(product);
+    categories.add(category);
     return '';
   }
 
-  Future deleteProduct(Listado product, BuildContext context) async {
+  Future deletecategory(ListCategories category, BuildContext context) async {
     final url = Uri.http(
       _baseUrl,
-      'ejemplos/product_del_rest/',
+      'ejemplos/category_del_rest/',
     );
     String basicAuth = 'Basic ${base64Encode(utf8.encode('$_user:$_pass'))}';
-    final response = await http.post(url, body: product.toJson(), headers: {
+    final response = await http.post(url, body: category.toJson(), headers: {
       'authorization': basicAuth,
       'Content-type': 'application/json; charset=UTF-8',
     });
     final decodeResp = response.body;
     print(decodeResp);
-    products.clear(); //borra todo el listado
-    loadProducts();
+    categories.clear(); //borra todo el listado
+    loadCategory();
     Navigator.of(context).pushNamed('list');
     return '';
   }
