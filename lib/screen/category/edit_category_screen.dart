@@ -44,6 +44,7 @@ class _CategoryScreenBody extends StatelessWidget {
             onPressed: () async {
               if (!categoryForm.isValidForm()) return;
               await categoryService.deletecategory(categoryForm.categories, context);
+              Navigator.of(context).pushNamed('list_category');
             },
             heroTag: null,
           ),
@@ -53,6 +54,7 @@ class _CategoryScreenBody extends StatelessWidget {
             onPressed: () async {
               if (!categoryForm.isValidForm()) return;
               await categoryService.editOrCreatecategory(categoryForm.categories);
+              Navigator.of(context).pushNamed('list_category');
             },
             heroTag: null,
           ),

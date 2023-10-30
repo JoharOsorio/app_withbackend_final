@@ -27,7 +27,11 @@ class ListCategories {
     required this.categoryName,
     required this.categoryState,
   });
-
+  ListCategories.empty()
+      : categoryId = 0,
+        categoryName = '',
+        categoryState = 'Activa';
+        
   int categoryId;
   String categoryName;
   String categoryState;

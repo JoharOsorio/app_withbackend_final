@@ -62,7 +62,6 @@ class CategoryService extends ChangeNotifier {
     final index = categories
         .indexWhere((element) => element.categoryId == category.categoryId);
     categories[index] = category;
-
     return '';
   }
 
@@ -93,7 +92,6 @@ class CategoryService extends ChangeNotifier {
       'Content-type': 'application/json; charset=UTF-8',
     });
     final decodeResp = response.body;
-    print(decodeResp);
     categories.clear(); //borra todo el listado
     loadCategory();
     Navigator.of(context).pushNamed('list_category');

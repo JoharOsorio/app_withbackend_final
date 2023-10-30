@@ -8,3 +8,4 @@ export 'package:app_withbackend_final/screen/login/login_screen.dart';
 export 'package:app_withbackend_final/screen/category/list_categories_screen.dart';
 export 'package:app_withbackend_final/screen/category/edit_category_screen.dart';
 export 'package:app_withbackend_final/screen/provider/list_provider_screen.dart';
+export 'package:app_withbackend_final/screen/provider/edit_provider_screen.dart';

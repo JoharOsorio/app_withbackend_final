@@ -1,17 +1,17 @@
 import 'dart:convert';
 
-class Provider {
-  Provider({
+class ProviderModel {
+  ProviderModel({
     required this.listProviders,
   });
 
   List<ListProviders> listProviders;
 
-  factory Provider.fromJson(String str) => Provider.fromMap(json.decode(str));
+  factory ProviderModel.fromJson(String str) => ProviderModel.fromMap(json.decode(str));
 
   String toJson() => json.encode(toMap());
 
-  factory Provider.fromMap(Map<String, dynamic> json) => Provider(
+  factory ProviderModel.fromMap(Map<String, dynamic> json) => ProviderModel(
         listProviders:
             List<ListProviders>.from(json["Proveedores Listado"].map((x) => ListProviders.fromMap(x))),
       );
@@ -29,7 +29,13 @@ class ListProviders {
     required this.providerMail,
     required this.providerState,
   });
-
+  ListProviders.empty()
+      : providerId = 0,
+        providerName = '',
+        providerLastName = '',
+        providerMail = '',
+        providerState = 'Activa';
+                
   int providerId;
   String providerName;
   String providerLastName;

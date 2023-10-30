@@ -1,3 +1,4 @@
+import 'package:app_withbackend_final/models/provider.dart';
 import 'package:app_withbackend_final/services/provider_service.dart';
 import 'package:app_withbackend_final/services/services.dart';
 import 'package:flutter/material.dart';
@@ -13,7 +14,10 @@ class ListProviderScreen extends StatelessWidget {
         title: const Text('Proveedores'),
         actions: [
           IconButton(
-              onPressed: () => {},// Navigator.pushNamed(context, 'edit_provider'),
+              onPressed: () => {
+                providerService.selectproviders = ListProviders.empty(),
+                Navigator.pushNamed(context, 'edit_provider')
+              },
               icon: const Icon(Icons.add))
         ],
       ),
@@ -22,9 +26,9 @@ class ListProviderScreen extends StatelessWidget {
         itemBuilder: (BuildContext context, int index) {
           return GestureDetector(
             onTap: () {
-              // providerService.selectproviders =
-              //     providerService.providers[index];
-              // Navigator.pushNamed(context, 'edit_provider');
+              providerService.selectproviders =
+                  providerService.providers[index];
+              Navigator.pushNamed(context, 'edit_provider');
             },
             child: Card(
               child: ListTile(

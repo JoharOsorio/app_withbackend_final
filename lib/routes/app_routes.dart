@@ -11,6 +11,7 @@ class AppRoutes {
     'list_category': (BuildContext context) => const ListCategoryScreen(),
     'edit_category': (BuildContext context) => const EditCategoryScreen(),
     'list_provider': (BuildContext context) => const ListProviderScreen(),
+    'edit_provider': (BuildContext context) => const EditProviderScreen(),
     'add_user': (BuildContext context) => const RegisterUserScreen(),
   };
 

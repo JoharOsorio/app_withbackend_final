@@ -1,3 +1,4 @@
+import 'package:app_withbackend_final/models/category.dart';
 import 'package:app_withbackend_final/services/services.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -12,7 +13,10 @@ class ListCategoryScreen extends StatelessWidget {
         title: const Text('Categorías'),
         actions: [
           IconButton(
-              onPressed: () =>{Navigator.pushNamed(context, 'edit_category')},
+              onPressed: () =>{
+                categoryService.selectCategories = ListCategories.empty(),
+                Navigator.pushNamed(context, 'edit_category')
+                },
               icon: const Icon(Icons.add))
         ],
       ),

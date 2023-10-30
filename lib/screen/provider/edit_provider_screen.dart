@@ -40,21 +40,23 @@ class _ProviderScreenBody extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.end,
         children: [
           FloatingActionButton(
-            child: const Icon(Icons.delete_forever),
             onPressed: () async {
               if (!providerForm.isValidForm()) return;
               await providerService.deleteprovider(providerForm.providers, context);
+              Navigator.of(context).pushNamed('list_provider');
             },
             heroTag: null,
+            child: const Icon(Icons.delete_forever),
           ),
           const SizedBox(width: 20),
           FloatingActionButton(
-            child: const Icon(Icons.save_alt_outlined),
             onPressed: () async {
               if (!providerForm.isValidForm()) return;
               await providerService.editOrCreateprovider(providerForm.providers);
+              Navigator.pushNamed(context, 'list_provider');
             },
             heroTag: null,
+            child: const Icon(Icons.save_alt_outlined),
           ),
         ],
       ),
@@ -69,6 +71,7 @@ class _ProviderForm extends StatelessWidget {
     final providerForm = Provider.of<ProviderProvider>(context);
     final provider = providerForm.providers;
     const providerState = "Activa";
+    const providerState2 = "Activo";
 
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 10),
@@ -96,11 +99,42 @@ class _ProviderForm extends StatelessWidget {
                 ),
               ),
               const SizedBox(height: 20),
+              TextFormField(
+                initialValue: provider.providerLastName,
+                onChanged: (value) => provider.providerLastName = value,
+                validator: (value) {
+                  if (value == null || value.isEmpty) {
+                    return 'Last Name cannot be empty';
+                  }
+                  return null;
+                },
+                decoration: InputDecortions.authInputDecoration(
+                  hinText: 'Last Name Address',
+                  labelText: 'Last Name',
+                ),
+              ),
+              const SizedBox(height: 20),
+              TextFormField(
+                initialValue: provider.providerMail,
+                onChanged: (value) => provider.providerMail = value,
+                validator: (value) {
+                  if (value == null || value.isEmpty) {
+                    return 'Mail cannot be empty';
+                  }
+                  return null;
+                },
+                decoration: InputDecortions.authInputDecoration(
+                  hinText: 'provider Mail',
+                  labelText: 'Mail',
+                ),
+              ),
+              const SizedBox(height: 20),
               SwitchListTile.adaptive(
-                value: provider.providerState == providerState ? true : false,
+                value: provider.providerState == providerState || provider.providerState == providerState2,
                 onChanged: (value) {
                   if (value == true) {
                     provider.providerState = providerState;
+                    print(provider.providerState);
                   } else {
                     provider.providerState = "Inactiva";
                   }
