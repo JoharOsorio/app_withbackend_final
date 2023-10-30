@@ -21,7 +21,7 @@ class ListProductScreen extends StatelessWidget {
           onTap: () {
             productService.selectProduct =
                 productService.products[index].copy();
-            Navigator.pushNamed(context, 'edit');
+            Navigator.pushNamed(context, 'edit_product');
           },
           child: ProductCard(product: productService.products[index]),
         ),
@@ -36,7 +36,7 @@ class ListProductScreen extends StatelessWidget {
               productImage:
                   'https://abravidro.org.br/wp-content/uploads/2015/04/sem-imagem4.jpg',
               productState: '');
-          Navigator.pushNamed(context, 'edit');
+          Navigator.pushNamed(context, 'edit_product');
         },
       ),
     );

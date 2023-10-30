@@ -12,7 +12,7 @@ class ListCategoryScreen extends StatelessWidget {
         title: const Text('Categorías'),
         actions: [
           IconButton(
-              onPressed: () =>{},// Navigator.pushNamed(context, 'edit_category'),
+              onPressed: () =>{Navigator.pushNamed(context, 'edit_category')},
               icon: const Icon(Icons.add))
         ],
       ),
@@ -21,9 +21,8 @@ class ListCategoryScreen extends StatelessWidget {
         itemBuilder: (BuildContext context, int index) {
           return GestureDetector(
             onTap: () {
-              // categoryService.selectCategories =
-              //     categoryService.categories[index];
-              // Navigator.pushNamed(context, 'edit_category');
+              categoryService.selectCategories = categoryService.categories[index];
+              Navigator.pushNamed(context, 'edit_category');
             },
             child: Card(
               child: ListTile(

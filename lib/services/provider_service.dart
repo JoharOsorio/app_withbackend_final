@@ -14,9 +14,9 @@ class ProviderService extends ChangeNotifier {
   bool isEditCreate = true;
 
   ProviderService() {
-    loadCategory();
+    loadprovider();
   }
-  Future loadCategory() async {
+  Future loadprovider() async {
     isLoading = true;
     notifyListeners();
     final url = Uri.http(
@@ -32,26 +32,26 @@ class ProviderService extends ChangeNotifier {
     notifyListeners();
   }
 
-  Future editOrCreatecategory(ListProviders category) async {
+  Future editOrCreateprovider(ListProviders provider) async {
     isEditCreate = true;
     notifyListeners();
-    if (category.providerId == 0) {
-      await createcategory(category);
+    if (provider.providerId == 0) {
+      await createprovider(provider);
     } else {
-      await updatecategory(category);
+      await updateprovider(provider);
     }
 
     isEditCreate = false;
     notifyListeners();
   }
 
-  Future<String> updatecategory(ListProviders category) async {
+  Future<String> updateprovider(ListProviders provider) async {
     final url = Uri.http(
       _baseUrl,
       'ejemplos/provider_edit_rest/',
     );
     String basicAuth = 'Basic ${base64Encode(utf8.encode('$_user:$_pass'))}';
-    final response = await http.post(url, body: category.toJson(), headers: {
+    final response = await http.post(url, body: provider.toJson(), headers: {
       'authorization': basicAuth,
       'Content-Type': 'application/json; charset=UTF-8',
     });
@@ -60,42 +60,42 @@ class ProviderService extends ChangeNotifier {
 
     //actualizamos el listado
     final index = providers
-        .indexWhere((element) => element.providerId == category.providerId);
-    providers[index] = category;
+        .indexWhere((element) => element.providerId == provider.providerId);
+    providers[index] = provider;
 
     return '';
   }
 
-  Future createcategory(ListProviders category) async {
+  Future createprovider(ListProviders provider) async {
     final url = Uri.http(
       _baseUrl,
       'ejemplos/provider_add_rest/',
     );
     String basicAuth = 'Basic ${base64Encode(utf8.encode('$_user:$_pass'))}';
-    final response = await http.post(url, body: category.toJson(), headers: {
+    final response = await http.post(url, body: provider.toJson(), headers: {
       'authorization': basicAuth,
       'Content-type': 'application/json; charset=UTF-8',
     });
     final decodeResp = response.body;
     print(decodeResp);
-    providers.add(category);
+    providers.add(provider);
     return '';
   }
 
-  Future deletecategory(ListProviders category, BuildContext context) async {
+  Future deleteprovider(ListProviders provider, BuildContext context) async {
     final url = Uri.http(
       _baseUrl,
       'ejemplos/provider_del_rest/',
     );
     String basicAuth = 'Basic ${base64Encode(utf8.encode('$_user:$_pass'))}';
-    final response = await http.post(url, body: category.toJson(), headers: {
+    final response = await http.post(url, body: provider.toJson(), headers: {
       'authorization': basicAuth,
       'Content-type': 'application/json; charset=UTF-8',
     });
     final decodeResp = response.body;
     print(decodeResp);
     providers.clear(); //borra todo el listado
-    loadCategory();
+    loadprovider();
     Navigator.of(context).pushNamed('list_providers');
     return '';
   }

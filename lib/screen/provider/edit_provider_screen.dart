@@ -1,49 +1,49 @@
-import 'package:app_withbackend_final/providers/category_provider.dart';
-import 'package:app_withbackend_final/services/category_service.dart';
+import 'package:app_withbackend_final/providers/provider_provider.dart';
+import 'package:app_withbackend_final/services/provider_service.dart';
 import 'package:app_withbackend_final/theme/theme.dart';
 import 'package:app_withbackend_final/ui/input_decorations.dart';
 import 'package:provider/provider.dart';
 
 
-class EditCategoryScreen extends StatelessWidget {
-  const EditCategoryScreen({super.key});
+class EditProviderScreen extends StatelessWidget {
+  const EditProviderScreen({super.key});
   @override
   Widget build(BuildContext context) {
-    final categoryService = Provider.of<CategoryService>(context);
+    final providerService = Provider.of<ProviderService>(context);
     return ChangeNotifierProvider(
-        create: (_) => CategoryProvider(categoryService.selectCategories!),
-        child: _CategoryScreenBody(
-          categoryService: categoryService,
+        create: (_) => ProviderProvider(providerService.selectproviders!),
+        child: _ProviderScreenBody(
+          providerService: providerService,
         ));
   }
 }
 
-class _CategoryScreenBody extends StatelessWidget {
-  const _CategoryScreenBody({
+class _ProviderScreenBody extends StatelessWidget {
+  const _ProviderScreenBody({
     Key? key,
-    required this.categoryService,
+    required this.providerService,
   }) : super(key: key);
 
-  final CategoryService categoryService;
+  final ProviderService providerService;
 
   @override
   Widget build(BuildContext context) {
-    final categoryForm = Provider.of<CategoryProvider>(context);
+    final providerForm = Provider.of<ProviderProvider>(context);
     return Scaffold(
       appBar: AppBar(
         title: Text(
-          categoryForm.categories.categoryName,
+          providerForm.providers.providerName,
         ),
       ),
-      body: _CategoryForm(),
+      body: _ProviderForm(),
       floatingActionButton: Row(
         mainAxisAlignment: MainAxisAlignment.end,
         children: [
           FloatingActionButton(
             child: const Icon(Icons.delete_forever),
             onPressed: () async {
-              if (!categoryForm.isValidForm()) return;
-              await categoryService.deletecategory(categoryForm.categories, context);
+              if (!providerForm.isValidForm()) return;
+              await providerService.deleteprovider(providerForm.providers, context);
             },
             heroTag: null,
           ),
@@ -51,8 +51,8 @@ class _CategoryScreenBody extends StatelessWidget {
           FloatingActionButton(
             child: const Icon(Icons.save_alt_outlined),
             onPressed: () async {
-              if (!categoryForm.isValidForm()) return;
-              await categoryService.editOrCreatecategory(categoryForm.categories);
+              if (!providerForm.isValidForm()) return;
+              await providerService.editOrCreateprovider(providerForm.providers);
             },
             heroTag: null,
           ),
@@ -63,12 +63,12 @@ class _CategoryScreenBody extends StatelessWidget {
 }
 
 
-class _CategoryForm extends StatelessWidget {
+class _ProviderForm extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    final categoryForm = Provider.of<CategoryProvider>(context);
-    final category = categoryForm.categories;
-    const categoryState = "Activa";
+    final providerForm = Provider.of<ProviderProvider>(context);
+    final provider = providerForm.providers;
+    const providerState = "Activa";
 
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 10),
@@ -77,13 +77,13 @@ class _CategoryForm extends StatelessWidget {
         width: double.infinity,
         decoration: _createDecoration(),
         child: Form(
-          key: categoryForm.formKey,
+          key: providerForm.formKey,
           autovalidateMode: AutovalidateMode.onUserInteraction,
           child: Column(
             children: [
               TextFormField(
-                initialValue: category.categoryName,
-                onChanged: (value) => category.categoryName = value,
+                initialValue: provider.providerName,
+                onChanged: (value) => provider.providerName = value,
                 validator: (value) {
                   if (value == null || value.isEmpty) {
                     return 'name cannot be empty';
@@ -91,20 +91,20 @@ class _CategoryForm extends StatelessWidget {
                   return null;
                 },
                 decoration: InputDecortions.authInputDecoration(
-                  hinText: 'category Name',
+                  hinText: 'provider Name',
                   labelText: 'Name',
                 ),
               ),
               const SizedBox(height: 20),
               SwitchListTile.adaptive(
-                value: category.categoryState == categoryState ? true : false,
+                value: provider.providerState == providerState ? true : false,
                 onChanged: (value) {
                   if (value == true) {
-                    category.categoryState = categoryState;
+                    provider.providerState = providerState;
                   } else {
-                    category.categoryState = "Inactiva";
+                    provider.providerState = "Inactiva";
                   }
-                  categoryForm.updateCategory(category);
+                  providerForm.updateProvider(provider);
                 },
                 activeColor: MyTheme.primary,
                 title: const Text('Disponible'),

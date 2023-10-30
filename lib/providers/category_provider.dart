@@ -9,4 +9,9 @@ class CategoryProvider extends ChangeNotifier {
   bool isValidForm() {
     return formKey.currentState?.validate() ?? false;
   }
+
+  void updateCategory(ListCategories category) {
+    categories = category;
+    notifyListeners();
+  }
 }
